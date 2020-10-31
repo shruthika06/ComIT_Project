@@ -1,0 +1,104 @@
+﻿@using Online_Shopping.Models.Home
+@{
+    ViewBag.Title = "ShoppingCart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @*<link href="~/Content/style.css" rel="stylesheet" />*@
+    @*<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">*@
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+}
+
+<div style="margin-top: 100px">
+
+</div>
+<h1 style="text-align:center;">Shopping Cart</h1>
+@if (Session["cart"] == null)
+{
+        <div class="alert alert-danger">
+            <strong>Your cart is currently empty.</strong>
+        </div>
+}
+else
+{
+    <div style="margin: 200px;" class="mb-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col"> </th>
+                                <th scope="col">Product</th>
+                                <th scope="col">Quantity</th>
+<th scope="col" class="text-right">Price</th>
+<th scope="col" class="text-right">Total Price</th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                            @{
+                                int Total = 0;
+                            }
+                            @foreach (CartItem item in (List<CartItem>)Session["cart"])
+                            {
+                                int lineTotal = Convert.ToInt32(item.Quantity * item.Product.Price);
+                                Total = Convert.ToInt32(@Total + lineTotal);
+
+                                Session["SesTotal"] = Total;
+
+                            <tr>
+                                <td style="width: 20px;"><img style="width: 50px; height: 50px;" src="~/ProductImg/@item.Product.ProductImage" /></td>
+                                <td>@item.Product.ProductName</td>
+                                <td>
+                                    <a style="color: black;" href="@Url.Action("AddToCart", "Home", new { productId = item.Product.ProductId, url="ShoppingCart" })">
+                                        <i class="fa fa-plus"></i>
+                                    </a>&nbsp; &nbsp; @item.Quantity &nbsp; &nbsp;
+                                    <a style="color: black;" href="@Url.Action("DecreaseQty", "Home", new { productId = item.Product.ProductId })">
+                                        <i class="fa fa-minus"></i>
+                                    </a>
+                                </td>
+                                    <td style="width: 20px;" class="text-right">$@item.Product.Price</td>
+                                    <td class="text-right">$@lineTotal</td>
+                            </tr>
+                            }
+
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Sub-Total</td>
+                                <td class="text-right">$@Total</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Shipping</td>
+                                <td class="text-right">$0</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><strong>Total</strong></td>
+                                <td class="text-right"><strong>$@Total</strong></td>
+                            </tr>
+                        </tbody>
+                </table>
+            </div>
+        </div>
+<div class="col mb-2">
+    <div class="row">
+        <div class="col-sm-12  col-md-6">
+            <a class="btn btn-lg btn-block btn-default text-uppercase" href="@Url.Action("Index","Home")">Continue Shopping</a>
+        </div>
+        <div class="col-sm-12 col-md-6 text-right">
+            <a class="btn btn-lg btn-block btn-success text-uppercase" href="@Url.Action("Checkout","Home")">Checkout</a>
+            @*<a class="btn btn-success" href="@Url.Action("Checkout","Home")">Checkout</a>*@
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+}

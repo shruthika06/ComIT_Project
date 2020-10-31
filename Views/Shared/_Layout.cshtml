@@ -1,0 +1,290 @@
+﻿@using Online_Shopping.Models.Home
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/9d5b1eef7b.js" crossorigin="anonymous"></script>
+    @Scripts.Render("~/bundles/modernizr")
+   
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <!-- Header Start -->
+            <div class="header-area">
+                <div class="main-header header-sticky sticky-bar">
+                    <div class="container-fluid">
+                        <div class="row menu-wrapper align-items-center justify-content-between">
+                            <div class="header-left d-flex align-items-center">
+                                <!-- Logo -->
+                                <div class="logo">
+                                    <h1><a href="@Url.Action("Index", "Home")">WOOD<span>WISE</span></a></h1>
+                                </div>
+                                <!-- Main-menu -->
+                                <div class="main-menu d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation">
+                                            <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                                            <li><a href="#">About</a></li>
+                                            <li><a href="#">Contact</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div class="header-right1 d-flex align-items-center">
+                                <div class="search">
+                                    <ul class="d-flex align-items-center">
+                                        <li>
+                                            <!-- Search Box -->
+                                            <form method="post" action="#" class="form-box f-right ">
+                                                <input type="text" name="search" placeholder="Search products">
+                                                <div class="search-icon">
+                                                    <i class="fas fa-search"></i>
+                                                </div>
+                                            </form>
+                                        </li>
+                                        <li>
+                                            <a href="login.html" class="account-btn" target="_blank"><i style="font-size:20px;" class="fas fa-user"></i></a>
+                                        </li>
+
+                                        <li class="dropdown">
+
+
+                                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                                <div class="card-stor">
+                                                    <i style="font-size:20px; color:black !important;" class="fa fa-shopping-cart"></i>
+
+                                                    @if (Session["cart"] != null)
+                                                    {
+                                                        foreach (CartItem item in (List<CartItem>)Session["cart"])
+                                                        {
+
+                                                            <span>@item.Quantity</span>
+
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+
+                                                        <span>0</span>
+
+                                                    }
+                                                </div>
+                                            </a>
+
+
+                                            <ul style="width: 380px;" class="dropdown-menu dropdown-cart dropdown-menu-right p-4">
+                                                @if (Session["cart"] != null)
+                                                {
+                                                    foreach (CartItem item in (List<CartItem>)Session["cart"])
+                                                    {
+                                                        <li>
+                                                            <a href="@Url.Action("RemoveFromCart", "Home", new { productId=item.Product.ProductId})">
+                                                                <span style="border-bottom: 0.1px dotted; border-bottom-color: lightgray" class="item">
+                                                                    <span class="item-left">
+
+                                                                        <img style="width: 50px; height: 50px;" src="~/ProductImg/@item.Product.ProductImage" alt="" />
+                                                                        <span class="item-info">
+                                                                            <span><b>@item.Product.ProductName </b>(@item.Quantity)</span>
+                                                                            <span><b>Price:</b> $@item.Product.Price</span>
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="item-right">
+
+                                                                        @*@item.Product.ProductName (@item.Quantity)*@
+                                                                        <i class="fa fa-times"></i>
+
+                                                                        @*<button class="btn btn-xs btn-danger pull-right"><i class="fa fa-times"></i></button>*@
+                                                                    </span>
+
+                                                                </span>
+                                                            </a>
+                                                        </li>
+                                                    }
+
+                                                }
+                                                <li class="divider"></li>
+                                                <li style="background-color: lightgrey; margin: 0 50px; border-radius: 10px;"><a style="color: white; background-color: #e67e22; margin: 0px; padding: 10px;" class="text-center" href="@Url.Action("ShoppingCart","Home")"><b>Checkout</b></a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Header End -->
+
+
+        @RenderBody()
+        <hr />
+
+        <div style="margin-left: 10px; padding-left: 150px;" class="categories-area section-padding40 gray-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="single-cat mb-50 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                            <div class="cat-icon">
+                                <img style="padding-left: 50px;" src="~/Images/services1.svg" alt="">
+                            </div>
+                            <div class="cat-cap">
+                                <h5>Fast & Free Delivery</h5>
+                                <p>Free delivery on all orders</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="single-cat mb-50 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                            <div class="cat-icon">
+                                <img style="padding-left: 50px;" src="~/Images/services2.svg" alt="">
+                            </div>
+                            <div class="cat-cap">
+                                <h5>Secure Payment</h5>
+                                <p>Free delivery on all orders</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="single-cat mb-50 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s">
+                            <div class="cat-icon">
+                                <img style="padding-left: 60px;" src="~/Images/services3.svg" alt="">
+                            </div>
+                            <div class="cat-cap">
+                                <h5>Money Back Guarantee</h5>
+                                <p>Free delivery on all orders</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="single-cat mb-50 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".5s">
+                            <div class="cat-icon">
+                                <img style="padding-left: 50px;" src="~/Images/services4.svg" alt="">
+                            </div>
+                            <div class="cat-cap">
+                                <h5>Online Support</h5>
+                                <p>Free delivery on all orders</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-wrapper">
+                <!-- Footer Start-->
+                <div class="footer-area footer-padding">
+                    <div class="container ">
+                        <div class="row justify-content-between">
+                            <div class="col-xl-4 col-lg-3 col-md-8 col-sm-8">
+                                <div class="single-footer-caption mb-50">
+                                    <div class="single-footer-caption mb-30">
+                                        <!-- logo -->
+                                        <div class="logo">
+                                            <h1><a style="color: white;" href="#">WOOD<span>WISE</span></a></h1>
+                                        </div>
+                                        <div class="footer-tittle">
+                                            <div class="footer-pera">
+                                                <p>Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla.</p>
+                                            </div>
+                                        </div>
+                                        <!-- social -->
+                                        <div class="footer-social">
+                                            <a href="https://twitter.com/?lang=en"><i class="fab fa-twitter"></i></a>
+                                            <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+                                            <a href="https://in.pinterest.com/"><i class="fab fa-pinterest-p"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4">
+                                <div class="single-footer-caption mb-50">
+                                    <div class="footer-tittle">
+                                        <h4>SHOP</h4>
+                                        <ul>
+                                            <li><a href="#">For Living Room</a></li>
+                                            <li><a href="#">For Dining Hall</a></li>
+                                            <li><a href="#">Accessories</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4">
+                                <div class="single-footer-caption mb-50">
+                                    <div class="footer-tittle">
+                                        <h4>COMPANY</h4>
+                                        <ul>
+                                            <li><a href="#">Login</a></li>
+                                            <li><a href="#">Register</a></li>
+                                            <li><a href="#">Our Products</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4">
+                                <div class="single-footer-caption mb-50">
+                                    <div class="footer-tittle">
+                                        <h4>OTHERS</h4>
+                                        <ul>
+                                            <li><a href="#">Login</a></li>
+                                            <li><a href="#">Register</a></li>
+                                            <li><a href="#">Privacy Policy</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4">
+                                <div class="single-footer-caption mb-50">
+                                    <div class="footer-tittle">
+                                        <h4>CONTACT INFO</h4>
+
+                                        <p>4333 Graham Street, Saskatoon, SK</p>
+                                        <p>+1 999 999 9999</p>
+                                        <p><a href="mailto:admin@woodwise.com" target="_blank">admin@woodwise.com</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- footer-bottom area -->
+                <div class="footer-bottom-area">
+                    <div class="container">
+                        <div class="footer-border">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-xl-12 ">
+                                    <div class="footer-copy-right text-center">
+                                        <p style="margin-left: 110px">
+                                            &copy; Woodwise. All Rights Reserved.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Footer End-->
+            </div>
+        </footer>
+
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+<!--? New Arrival End -->
+<!-- Scroll Up -->
+<div id="back-top">
+    <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+</div>

@@ -1,0 +1,78 @@
+﻿
+<!--@{
+    ViewBag.Title = "SignUp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <link href="~/Account_Style/css/style.css" rel="stylesheet" />
+    <script src="~/Account_Style/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Account_Style/js/main.js"></script>
+    <link href="~/Account_Style/fonts/material-icon/css/material-design-iconic-font.min.css" rel="stylesheet" />
+}
+
+<div class="main">
+
+    <section class="signup">-->
+        @*<img src="images/signup-bg.jpg" alt="">*@
+        <!--<div class="container">
+            <div class="signup-content">
+                <form--> @*method="POST"*@ <!--id="signup-form" class="user signup-form">
+                    <h2 class="form-title">Sign-Up</h2>
+                    <div class="form-group">
+                        <input type="text" class="form-input" name="name" id="name" placeholder="User Name" />
+                    </div>-->
+                    @*<div class="form-group">
+                            <input type="email" class="form-input" name="email" id="email" placeholder="Your Email" />
+                        </div>*@
+                    <!--<div class="form-group">
+                        <input type="password" class="form-input" name="password" id="password" placeholder="Password" />
+                        <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                    </div>
+                    <div class="form-group">
+                            <input type="password" class="form-input" name="re_password" id="re_password" placeholder="Repeat your password" />
+                        </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                        <label for="agree-term" class="label-agree-term"><span><span></span></span>Remember Me-->  @*<a href="#" class="term-service"></a>*@<!--</label>
+                    </div>
+                    <div class="form-group">
+                        <input onclick="SaveUser()" type="submit" name="submit" id="submit" class="form-submit" />
+                    </div>
+                </form>
+                <p class="loginhere">
+                    Already have an account? <a href="#" class="loginhere-link"> Sign In</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+
+<script>
+    function SaveUser() {
+        var user = new Object();
+        user.UserName = $("#name").val();
+        user.Password = $("#password").val();
+        //user.Role = $("#role").val();
+        var data = JSON.stringify({
+            user: user
+        });
+        return $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: "/Home/SaveUser",
+            data: data,
+            success: function (result) {
+                if (result == true) {
+                    alert("Save Success!");
+                }
+                else {
+                    alert("Save failed!");
+                }
+            },
+            error: function () {
+                alert("Error!")
+            }
+        });
+    }
+</script>-->
